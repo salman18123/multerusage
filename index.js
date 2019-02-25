@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
 const SERVER_PORT=process.env.PORT||8000
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, '')))
 //app.use('/api',require('./api'))
 app.listen(SERVER_PORT,()=>{
     console.log("started the base")
