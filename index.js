@@ -5,7 +5,7 @@ const child_process = require('child_process');
 const multer = require('multer');
 const download= require('download');
 const fs = require('fs');
-const folderPath= './uploads/images';
+const folderPath= './uploads';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads/images')
