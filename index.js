@@ -1,7 +1,9 @@
 const express=require('express')
 const path=require('path')
 const app=express()
+const child_process = require('child_process');
 const multer = require('multer');
+const download= require('download');
 const fs = require('fs');
 const folderPath= './uploads/images';
 var storage = multer.diskStorage({
@@ -18,7 +20,7 @@ var storage = multer.diskStorage({
 const SERVER_PORT=process.env.PORT||8000
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/', express.static(path.join(__dirname, '')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 //app.use('/api',require('./api'))
 app.listen(SERVER_PORT,()=>{
     console.log("started the base")
@@ -43,4 +45,28 @@ app.use('/import',(req,res)=>{
     
     res.send({message:'success'})
 
+})
+
+app.use('/download',(req,res)=>{
+    // fs.readdir('./uploads/images').forEach((filename)=>{
+    //     console.log(filename)
+    //  res.download(`./uploads/images/${filename}`)
+
+    // })
+    // fs.readdir('./uploads/images',(err,data)=>{
+    //     data.forEach((filename)=>{
+    //         setTimeout(function() {
+    //             res.download(`./uploads/images/${filename}`)  
+    //         }, 3000);
+            
+    //     })
+    // })
+    //const folderPath= './uploads/images';
+    child_process.execSync(`zip -r archive *`, {
+        cwd: folderPath
+      });
+      res.download(folderPath +'/archive.zip')
+  
+    
+    
 })
