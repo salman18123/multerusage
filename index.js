@@ -115,7 +115,7 @@ app.use('/downloads/:username',(req,res)=>{
         cwd: folderpath
       });
       res.download(folderPath +'/archive.zip')
-    res.send({message:'success'})
+    
   
     
     
