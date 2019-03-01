@@ -1,0 +1,30 @@
+myapp.config(['$routeProvider',function($routeProvider){
+    $routeProvider
+    
+    .when('/',{
+        templateUrl:'views/uploadmeme.html',
+        controller:'uploadmemecontroller',
+        controllerAs:'uploadmeme'
+    })
+    .when('/signup',{
+        templateUrl:'views/signup.html',
+        controller:'signupcontroller',
+        controllerAs:'signup'
+    })
+    .when('/login',{
+        templateUrl:'views/login.html',
+        controller:'logincontroller',
+        controllerAs:'login'
+    })
+    .when('/userlogin/:username',{
+        templateUrl:'views/userlogin.html',
+        controller:'userlogincontroller',
+        controllerAs:'userlogin'
+    })
+    .when('/userimages/:username',{
+        templateUrl:'views/userimages.html',
+        controller:'userimagescontroller',
+        controllerAs:'userimages'
+    })
+  
+   }])

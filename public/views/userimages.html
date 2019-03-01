@@ -1,0 +1,27 @@
+
+
+        
+<div class="card border-success mt-5">
+    <h1 class="card-header">Your Images<a ng-href="{{'https://salmansmemes.herokuapp.com/downloads/'+userimages.username}}"><button class="btn btn-small btn-primary">Download</button></a></h1>
+        <div class="card-body">
+            
+                
+             <div  style="display:inline" ng-repeat="image in userimages.userdetails">
+                 
+                <img  class="img-responsive" style="display: inline" ng-src="{{'/usersfolder/'+image.username+'/'+image.imagename}}" alt="Smiley face" height="100px" width="100px" >  
+                </div> 
+                
+                
+             </div>
+            </div>
+
+                
+            </div>
+
+            
+
+        
+        
+
+
+</div>
