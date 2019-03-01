@@ -6,11 +6,21 @@ const child_process = require('child_process');
 const users=require('./db').users
 const userimages=require('./db').userimages
 const multer = require('multer');
+const mkdirp=require('mkdirp')
 //const download= require('download');
 const fs = require('fs');
 const folderPath= './public/usersfolder/globalising';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        if(req.params.username=='globalise'){
+            if(!fs.existsSync('./public/usersfolder/globalise')){
+                mkdirp('./public/usersfolder/globalise',(err,data)=>{
+                    console.log("created directory for user")  
+                })
+
+            }
+
+        }
       cb(null, './public/usersfolder/'+req.params.username)
     },
     filename: function (req, file, cb) {
