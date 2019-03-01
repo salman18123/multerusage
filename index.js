@@ -8,7 +8,7 @@ const userimages=require('./db').userimages
 const multer = require('multer');
 //const download= require('download');
 const fs = require('fs');
-const folderPath= './public/usersfolder/globals';
+const folderPath= './public/usersfolder/globalising';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './public/usersfolder/'+req.params.username)
@@ -37,7 +37,7 @@ app.use('/upload/uploads/',upload.single('photo'),(req,res)=>{
 })
 app.use('/uploads/:username',upload.single('photo'),(req,res)=>{
     console.log(req.file)
-    if(req.params.username!='globals'){
+    if(req.params.username!='globalising'){
         userimages.create({
             username:req.params.username,
             imagename:req.file.filename,
