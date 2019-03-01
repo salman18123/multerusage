@@ -8,7 +8,7 @@ const userimages=require('./db').userimages
 const multer = require('multer');
 //const download= require('download');
 const fs = require('fs');
-const folderPath= './public/usersfolder/global';
+const folderPath= './public/usersfolder/globals';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './public/usersfolder/'+req.params.username)
@@ -37,7 +37,7 @@ app.use('/upload/uploads/',upload.single('photo'),(req,res)=>{
 })
 app.use('/uploads/:username',upload.single('photo'),(req,res)=>{
     console.log(req.file)
-    if(req.params.username!='global'){
+    if(req.params.username!='globals'){
         userimages.create({
             username:req.params.username,
             imagename:req.file.filename,
@@ -111,10 +111,11 @@ app.use('/downloads/:username',(req,res)=>{
     //     })
     // })
     const folderpath= './public/usersfolder/' + req.params.username;
+    console.log(folderpath)
     child_process.execSync(`zip -r archive *`, {
         cwd: folderpath
       });
-      res.download(folderPath +'/archive.zip')
+      res.download(folderpath +'/archive.zip')
     
   
     
