@@ -63,7 +63,7 @@ const userimages=db.define('userimages',{
 })
     
 
-db.sync({force:true})
+db.sync()
 .then(()=>{
     console.log("synced successfully")
 })
