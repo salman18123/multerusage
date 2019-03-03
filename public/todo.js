@@ -5,6 +5,10 @@ myapp.controller('uploadmemecontroller',['$location','$http','$rootScope','$wind
     this.clicking=function(){
       $location.path('/signup')
     }
+    this.viewing=function(){
+        $location.path('/viewmemes')
+      }
+    
 
 
 
@@ -93,6 +97,29 @@ myapp.controller('userimagescontroller',['$location','$http','$rootScope','$rout
     }
     
     this.getuserimages()
+
+    
+
+
+}])
+
+myapp.controller('viewmemescontroller',['$location','$http','$rootScope',function($location,$http,$rootScope){
+    var main=this;
+    var memescollection=''
+    this.clicking=function(){
+        var mydata={
+            username:'globalise',
+            
+        }
+        $http.post('/api/userimages',mydata)
+        .then((response)=>{
+        
+        console.log(response)
+        main.memescollection=response.data.images
+        })
+
+      }
+      this.clicking()
 
     
 

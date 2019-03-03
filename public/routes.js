@@ -26,5 +26,10 @@ myapp.config(['$routeProvider',function($routeProvider){
         controller:'userimagescontroller',
         controllerAs:'userimages'
     })
+    .when('/viewmemes',{
+        templateUrl:'views/viewmemes.html',
+        controller:'viewmemescontroller',
+        controllerAs:'viewmemes'
+    })
   
    }])

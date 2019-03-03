@@ -7,11 +7,17 @@ const users=require('./db').users
 const userimages=require('./db').userimages
 const multer = require('multer');
 const mkdirp=require('mkdirp')
+const cloudinary = require('cloudinary').v2
+cloudinary.config({
+  cloud_name: 'dyy09oknk',
+  api_key: '215971343167646',
+  api_secret: 'x71a4aoldIafMwTzx79bKNEINBM'
+})
 //const download= require('download');
 const fs = require('fs');
 const folderPath= './public/usersfolder/globalising';
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (req, file, cb) { 
         if(req.params.username=='globalise'){
             if(!fs.existsSync('./public/usersfolder/globalise')){
                 mkdirp('./public/usersfolder/globalise',(err,data)=>{
@@ -62,7 +68,39 @@ app.use('/uploads/:username',upload.single('photo'),(req,res)=>{
 
         })
     }
-    res.send("Uploaded Successfully")
+
+    const uniqueFilename = new Date().toISOString() 
+    const path = req.file.path
+    cloudinary.uploader.upload(
+        path,
+        { public_id: `${req.params.username}/${uniqueFilename}`, tags: `${req.params.username}` }, // directory and tags are optional
+        function(err, image) {
+          if (err) return res.send(err)
+          console.log('file uploaded to Cloudinary')
+          // remove file from server
+          const fs = require('fs')
+          fs.unlinkSync(path)
+          // return image details
+          console.log(image)
+          userimages.create({
+            username:req.params.username,
+            imagename:req.file.filename,
+            destination:req.file.destination,
+            url:image.url
+        })
+        .then((data)=>{
+            console.log(data)
+
+        })
+        .catch((err)=>{
+            console.log(err)
+
+        })
+          res.send("Uploaded Successfully")
+        }
+      )
+    
+    //res.send("Uploaded Successfully")
  
  })
 const homedir=require('os').homedir()

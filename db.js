@@ -55,11 +55,15 @@ const userimages=db.define('userimages',{
     },
     destination:{
         type:Sequelize.STRING
+    },
+    url:{
+     type:Sequelize.STRING,
+     allowNull:false   
     }
 })
     
 
-db.sync()
+db.sync({force:true})
 .then(()=>{
     console.log("synced successfully")
 })
